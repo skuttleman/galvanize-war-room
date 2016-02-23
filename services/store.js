@@ -7,16 +7,14 @@ module.exports = {
 };
 
 function insertOrReturn(server) {
-  return mongo.connect().then(function(db) {
-    return new Promise(function(resolve, reject) {
-      db.collection('servers').findOne({ id: server.id }, findOneCB(db, server, resolve, reject));
-    });
+  return new Promise(function(resolve, reject) {
+    mongo.collection('servers').findOne({ id: server.id }, findOneCB(server, resolve, reject));
   });
 }
 
 function statisticize(array) {
   array.forEach(updateAverage);
-  return Promise.all(array.map(updateServer))
+  return Promise.all(array.map(updateServer));
 }
 
 function updateAverage(server) {
@@ -31,49 +29,50 @@ function updateAverage(server) {
 }
 
 function updateServer(server) {
-  return mongo.connect().then(function(db) {
-    return new Promise(function(resolve, reject) {
-      var where = { id: server.id };
-      var update = {
-        $set: {
-          average: server.average,
-          responseTime: server.responseTime
-        }
-      };
-      db.collection('servers').update(where, update, updateCB(db, server, resolve, reject));
-    });
+  return new Promise(function(resolve, reject) {
+    var where = { id: server.id };
+    var update = {
+      $set: {
+        average: server.average,
+        responseTime: server.responseTime
+      }
+    };
+    mongo.collection('servers').update(where, update, updateCB(server, resolve, reject));
   }).then(function() {
     return server;
   });
 }
 
-function findOneCB(db, server, resolve, reject)  {
+function findOneCB(server, resolve, reject)  {
+  console.log('here');
   return function(err, data) {
     if (err) {
-      db.close();
+      console.log('findOneCB');
       reject(err);
     } else if (data) {
-      db.close();
       data.responseTime = server.responseTime;
       resolve(data);
     } else {
-      db.collection('servers').insert(server, insertCB(db, server, resolve, reject));
+      mongo.collection('servers').insert(server, insertCB(server, resolve, reject));
     }
   };
 }
 
-function insertCB(db, server, resolve, reject) {
+function insertCB(server, resolve, reject) {
   return function(err, data) {
-    db.close();
-    if (err) return reject(err);
-    else resolve(server);
+    if (err) {
+      console.log('insertCB');
+      reject(err);
+    } else {
+      resolve(server);
+    }
   };
 }
 
-function updateCB(db, server, resolve, reject) {
+function updateCB(server, resolve, reject) {
   return function(err, data) {
-    db.close();
     if (err) {
+      console.log('updateCB');
       reject(err);
     } else {
       resolve(data);
