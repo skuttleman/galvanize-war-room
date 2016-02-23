@@ -5,10 +5,15 @@ try {
 }
 var express = require('express'), app = express();
 var server = require('http').Server(app);
+require('./services/socket')(server);
 var port = process.env.PORT || 8000;
 
+// Serve Angular App
 app.use(express.static(__dirname + '/public'));
 
+
+
+// Start Server
 server.listen(port, function() {
   console.log('Server is listening on port', port);
 });
