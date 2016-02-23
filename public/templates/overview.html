@@ -1,5 +1,5 @@
 <ul>
-  <li ng-repeat="server in servers">
+  <li ng-repeat="server in servers" ui-sref="details({ id: server.id })">
     {{server.name}}
     {{server.responseTime | milliseconds}}
   </li>
