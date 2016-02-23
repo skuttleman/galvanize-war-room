@@ -5,11 +5,17 @@ try {
 }
 var express = require('express'), app = express();
 var server = require('http').Server(app);
+var bodyParser = require('body-parser');
 require('./services/socket')(server);
+
 var port = process.env.PORT || 8000;
 
 // Serve Angular App
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+
+var settings = require('./routes/settings');
+app.use('/api/settings', settings);
 
 
 

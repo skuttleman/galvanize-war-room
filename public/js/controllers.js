@@ -1,7 +1,7 @@
 angular.module('galvanize-war-room')
 .controller('OverviewController', ['$rootScope', '$scope', 'Socket', 'StatusService', OverviewController])
 .controller('DetailsController', ['$rootScope', '$scope', 'Socket', 'StatusService', '$stateParams', DetailsController])
-.controller('SettingsController', ['$rootScope', '$scope', 'StatusService', SettingsController]);
+.controller('SettingsController', ['$rootScope', '$scope', 'StatusService', '$http', SettingsController]);
 
 function OverviewController($rootScope, $scope, Socket, StatusService) {
   $rootScope.view = 'Overview';
@@ -21,10 +21,14 @@ function DetailsController($rootScope, $scope, Socket, StatusService, $statePara
   });
 }
 
-function SettingsController($rootScope, $scope, StatusService) {
+function SettingsController($rootScope, $scope, StatusService, $http) {
   $rootScope.view = 'Settings';
-  $scope.newOk = Math.round(StatusService.ok * 1000);
-  $scope.newWarn = Math.round(StatusService.warn * 1000);
+  $http.get('/api/settings').then(function(data) {
+    $scope.newOk = Math.round(data.data.settings.ok * 1000);
+    $scope.newWarn = Math.round(data.data.settings.warn * 1000);
+    StatusService.updateOk($scope.newOk);
+    StatusService.updateWarn($scope.newWarn);
+  });
   $scope.updateOk = StatusService.updateOk;
   $scope.updateWarn = StatusService.updateWarn;
 }
