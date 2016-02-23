@@ -1,6 +1,9 @@
-<ul>
-  <li ng-repeat="server in servers" ui-sref="details({ id: server.id })">
-    {{server.name}}
-    {{server.responseTime | milliseconds}}
+<ul class="server-overview">
+  <li class="server" ng-repeat="server in servers" ui-sref="details({ id: server.id })">
+    <h2>{{server.name}}</h2>
+    <p>Average Response Time: TBD</p>
+    <div class="response-container {{getStatus(server.responseTime)}}">
+      <p>Response Time: {{server.responseTime | milliseconds}}</p>
+    </div>
   </li>
 </ul>

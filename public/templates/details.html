@@ -1,4 +1,10 @@
-<p>{{server.name}}</p>
-<p>{{server.os}}</p>
-<p>{{server.responseTime | milliseconds}}</p>
-<p>{{server.cpu}}</p>
+<div class="server">
+  <h2>{{server.name}}</h2>
+
+  <div class="response-container {{getStatus(server.responseTime)}}">
+    <p>Response Time: {{server.responseTime | milliseconds}}</p>
+  </div>
+  <p>Average Response Time: TBD</p>
+  <p>Operating System: {{server.os}}</p>
+  <p>CPU: {{server.cpu}}</p>
+</div>

@@ -1,15 +1,17 @@
 angular.module('galvanize-war-room')
-.controller('OverviewController', ['$scope', 'socket', OverviewController])
-.controller('DetailsController', ['$scope', 'socket', '$stateParams', DetailsController]);
+.controller('OverviewController', ['$scope', 'Socket', 'StatusService', OverviewController])
+.controller('DetailsController', ['$scope', 'Socket', 'StatusService', '$stateParams', DetailsController]);
 
-function OverviewController($scope, socket) {
-  socket.on('server status', function(data) {
+function OverviewController($scope, Socket, StatusService) {
+  $scope.getStatus = StatusService.getStatus;
+  Socket.on('server status', function(data) {
     $scope.servers = data;
   });
 }
 
-function DetailsController($scope, socket, $stateParams) {
-  socket.on('server status', function(data) {
+function DetailsController($scope, Socket, StatusService, $stateParams) {
+  $scope.getStatus = StatusService.getStatus;
+  Socket.on('server status', function(data) {
     $scope.server = data.find(function(server) {
       return server.id == $stateParams.id;
     });
