@@ -1,0 +1,11 @@
+<header>
+  <h1>Galvanize War Room</h1>
+  <nav>
+    <ul class="navs">
+      <li ng-repeat="nav in navs">
+        <a ng-href="{{nav.link}}" ng-hide="view == nav.text">{{nav.text}}</a>
+        <span ng-show="view == nav.text">{{nav.text}}</span>
+      </li>
+    </ul>
+  </nav>
+</header>

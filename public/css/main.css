@@ -1,8 +1,9 @@
 header {
   height: 60px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 10px;
 }
 header > h1 {
@@ -21,6 +22,7 @@ li.server {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 .server > * {
   padding: 0 10px;
@@ -44,4 +46,20 @@ li.server {
 }
 .response-container.critical {
   background-color: red;
+}
+
+.navs {
+  display: flex;
+  justify-content: center;
+}
+.navs li {
+  list-style: none;
+  font-size: 1.25rem;
+}
+.navs li a,span {
+  padding: 0 5px 0 10px;
+
+}
+.navs li:first-child::after {
+  content: '|';
 }
