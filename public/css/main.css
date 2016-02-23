@@ -5,6 +5,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
+  border-bottom: 1px solid black;
 }
 header > h1 {
   margin: 0;
@@ -19,6 +20,7 @@ ul.server-overview {
 }
 li.server {
   flex-basis: 33%;
+  flex-grow: 1;
   border: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -62,4 +64,16 @@ li.server {
 }
 .navs li:first-child::after {
   content: '|';
+}
+.settings {
+  display: flex;
+  flex-direction: column;
+}
+.settings-row {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.settings-row label {
+  width: 200px;
 }
