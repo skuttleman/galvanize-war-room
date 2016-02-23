@@ -7,7 +7,6 @@ module.exports = function(server) {
     warRoom(function(err, data) {
       if (err) return console.error(err);
       store.update(data.data).then(function(response) {
-        console.log(response);
         socket.emit('server status', response);
       }).catch(console.error);
     });

@@ -7,13 +7,21 @@ function SocketFactory(socketFactory) {
 }
 
 function StatusService() {
-  var ok = 0.05;
-  var warn = 0.5;
-  return {
+  var service = {
+    ok: 0.05,
+    warn: 0.5,
     getStatus: function(ms) {
-      if (ms <= ok) return 'ok';
-      else if (ms <= warn) return 'warn';
+      console.log(ms);
+      if (ms <= service.ok) return 'ok';
+      else if (ms <= service.warn) return 'warn';
       else return 'critical';
+    },
+    updateOk: function(newOk) {
+      service.ok = newOk / 1000;
+    },
+    updateWarn: function(newWarn) {
+      service.warn = newWarn / 1000;
     }
-  }
+  };
+  return service;
 }

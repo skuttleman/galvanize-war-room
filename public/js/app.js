@@ -10,5 +10,9 @@ angular.module('galvanize-war-room', ['btford.socket-io', 'ui.router'])
     templateUrl: '/templates/details.html',
     controller: 'DetailsController',
     url: '/servers/:id'
+  }).state('settings', {
+    templateUrl: '/templates/settings.html',
+    controller: 'SettingsController',
+    url: '/settings'
   });
 }]);
