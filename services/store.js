@@ -1,4 +1,5 @@
 var mongo = require('../db/mongo');
+var Promise = require('promise');
 
 module.exports = {
   update: function(array) {

@@ -20,8 +20,10 @@ app.use('/api/settings', settings);
 
 
 // Start Server
-server.listen(port, function() {
-  console.log('Server is listening on port', port);
+server.listen(process.env.OPENSHIFT_NODEJS_PORT || port,
+  process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
+  function() {
+    console.log('Server is listening...');
 });
 
 
