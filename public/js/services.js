@@ -7,24 +7,28 @@ function SocketFactory(socketFactory) {
 }
 
 function StatusService($http) {
-  var service = {
+  var ok, warn;
+  $http.get('/api/settings').then(function(data) {
+    ok = data.data.settings.ok;
+    warn = data.data.settings.warn;
+  });
+  return {
     getStatus: function(ms) {
-      if (ms <= service.ok) return 'ok';
-      else if (ms <= service.warn) return 'warn';
+      if (ms <= ok) return 'ok';
+      else if (ms <= warn) return 'warn';
       else return 'critical';
     },
     updateOk: function(newOk) {
-      service.ok = newOk / 1000;
+      ok = newOk / 1000;
       $http.put('/api/settings', {
-        ok: service.ok
+        ok: ok
       });
     },
     updateWarn: function(newWarn) {
-      service.warn = newWarn / 1000;
+      warn = newWarn / 1000;
       $http.put('/api/settings', {
-        warn: service.warn
+        warn: warn
       });
     }
   };
-  return service;
 }
