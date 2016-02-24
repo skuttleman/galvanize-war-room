@@ -9,5 +9,5 @@ module.exports = function (callback) {
     .catch(function (reason) {
       callback(reason);
     });
-  }, 500);
+  }, 2000);
 }
