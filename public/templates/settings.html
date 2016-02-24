@@ -1,10 +1,10 @@
 <form class="settings">
   <div class="settings-row">
-    <label for="warn-threshhold">Warning Threshhold: </label>
+    <label for="warn-threshhold">Warning Threshhold (in ms): </label>
     <input id="warn-threshhold" type="number" min="0" ng-model="newOk" ng-change="updateOk(newOk)" />
   </div>
   <div class="settings-row">
-    <label for="critical-threshhold">Critical Threshhold: </label>
+    <label for="critical-threshhold">Critical Threshhold (in ms): </label>
     <input id="critical-threshhold" type="number" min="0" ng-model="newWarn" ng-change="updateWarn(newWarn)" />
   </div>
 </form>
