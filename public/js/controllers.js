@@ -23,12 +23,8 @@ function DetailsController($rootScope, $scope, Socket, StatusService, $statePara
 
 function SettingsController($rootScope, $scope, StatusService, $http) {
   $rootScope.view = 'Settings';
-  $http.get('/api/settings').then(function(data) {
-    $scope.newOk = Math.round(data.data.settings.ok * 1000);
-    $scope.newWarn = Math.round(data.data.settings.warn * 1000);
-    StatusService.updateOk($scope.newOk);
-    StatusService.updateWarn($scope.newWarn);
-  });
+  $scope.newOk = Math.round(StatusService.getOk() * 1000);
+  $scope.newWarn = Math.round(StatusService.getWarn() * 1000);
   $scope.updateOk = StatusService.updateOk;
   $scope.updateWarn = StatusService.updateWarn;
 }

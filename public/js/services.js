@@ -18,6 +18,12 @@ function StatusService($http) {
       else if (ms <= warn) return 'warn';
       else return 'critical';
     },
+    getOk: function() {
+      return ok;
+    },
+    getWarn: function() {
+      return warn;
+    },
     updateOk: function(newOk) {
       ok = newOk / 1000;
       $http.put('/api/settings', {
