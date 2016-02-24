@@ -17,3 +17,12 @@ module.exports = function(server) {
     sockets.push(socket);
   });
 };
+
+
+// Clean sockets array every minute
+setInterval(function() {
+  sockets = sockets.filter(function(socket) {
+    return socket.connected;
+  });
+  console.log(sockets.length);
+}, 60000);
